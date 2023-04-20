@@ -25,6 +25,7 @@
 		}
 	</style>
   <script>
+	// Existing logic for setting iframe source and size.
     function setIframeSourceAndSize() {
       const iframe = document.getElementById('figmaEmbed');
       const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -44,9 +45,15 @@
         iframe.height = 768;
       }
     }
+
+    // Set iframe source and size when the page loads.
+    window.addEventListener('load', setIframeSourceAndSize);
+
+    // Update iframe source and size when the browser window is resized.
+    window.addEventListener('resize', setIframeSourceAndSize);
   </script>
 </head>
-<body onload="setIframeSourceAndSize()">
-	<iframe id="figmaEmbed" allowfullscreen></iframe>
+<body>
+    <iframe id="figmaEmbed" allowfullscreen></iframe>
 </body>
 </html>
