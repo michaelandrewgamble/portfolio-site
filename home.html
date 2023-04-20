@@ -14,9 +14,6 @@
 		}
 
 		iframe {
-			display: block;
-			width: 1920px;
-			height: 1080px;
 			border: none;
 			position: absolute;
 			top: 50%;
@@ -27,8 +24,29 @@
 			background-color: black;
 		}
 	</style>
+  <script>
+    function setIframeSourceAndSize() {
+      const iframe = document.getElementById('figmaEmbed');
+      const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+      if (screenWidth >= 2560 || screenHeight >= 1440) {
+        iframe.src = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-976%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
+        iframe.width = 2560;
+        iframe.height = 1440;
+      } else if (screenWidth >= 1920 || screenHeight >= 1080) {
+        iframe.src = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D271-16009%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
+        iframe.width = 1920;
+        iframe.height = 1080;
+      } else {
+        iframe.src = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-909%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
+        iframe.width = 1366;
+        iframe.height = 768;
+      }
+    }
+  </script>
 </head>
-<body>
-	<iframe src="https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D271-16009%26viewport%3D241%252C511%252C0.03%26scaling%3Dmin-zoom" allowfullscreen></iframe>
+<body onload="setIframeSourceAndSize()">
+	<iframe id="figmaEmbed" allowfullscreen></iframe>
 </body>
 </html>
