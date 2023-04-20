@@ -25,33 +25,43 @@
 		}
 	</style>
   <script>
+	let currentSrc;
 	// Existing logic for setting iframe source and size.
-    function setIframeSourceAndSize() {
-      const iframe = document.getElementById('figmaEmbed');
-      const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-      const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-      if (screenWidth >= 2560 || screenHeight >= 1440) {
-        iframe.src = "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-976%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
-        iframe.width = 2560;
-        iframe.height = 1440;
-      } else if (screenWidth >= 1920 || screenHeight >= 1080) {
-        iframe.src = "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D271-16009%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
-        iframe.width = 1920;
-        iframe.height = 1080;
-      } else {
-        iframe.src = "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-909%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
-        iframe.width = 1366;
-        iframe.height = 768;
-      }
-    }
-
-    // Set iframe source and size when the page loads.
-    window.addEventListener('load', setIframeSourceAndSize);
-
-    // Update iframe source and size when the browser window is resized.
-    window.addEventListener('resize', setIframeSourceAndSize);
+	function setIframeSourceAndSize() {
+	  const iframe = document.getElementById('figmaEmbed');
+	  const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+	  const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	  let newSrc, newWidth, newHeight;
+  
+	  if (screenWidth >= 2560 || screenHeight >= 1440) {
+		newSrc = "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-976%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
+		newWidth = 2560;
+		newHeight = 1440;
+	  } else if (screenWidth >= 1920 || screenHeight >= 1080) {
+		newSrc = "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D271-16009%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
+		newWidth = 1920;
+		newHeight = 1080;
+	  } else {
+		newSrc = "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-909%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009";
+		newWidth = 1366;
+		newHeight = 768;
+	  }
+  
+	  if (newSrc !== currentSrc) {
+		currentSrc = newSrc;
+		iframe.src = currentSrc;
+		iframe.width = newWidth;
+		iframe.height = newHeight;
+	  }
+	}
+  
+	// Set iframe source and size when the page loads.
+	window.addEventListener('load', setIframeSourceAndSize);
+  
+	// Update iframe source and size when the browser window is resized.
+	window.addEventListener('resize', setIframeSourceAndSize);
   </script>
+  
 </head>
 <body>
     <iframe id="figmaEmbed" allowfullscreen></iframe>
