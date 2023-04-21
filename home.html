@@ -25,6 +25,8 @@
 		}
 	</style>
   <script>
+	let lastSelectedSizeIndex = null;
+  
 	function setIframeSourceAndSize() {
 	  const iframe = document.getElementById('figmaEmbed');
 	  const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -36,11 +38,15 @@
 		{ width: 1366, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-909%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" }
 	  ];
   
-	  const selectedSize = sizes.find(size => screenWidth >= size.width && screenHeight >= size.height) || sizes[sizes.length - 1];
+	  const selectedSizeIndex = sizes.findIndex(size => screenWidth >= size.width && screenHeight >= size.height);
   
-	  iframe.src = selectedSize.src;
-	  iframe.width = selectedSize.width;
-	  iframe.height = selectedSize.height;
+	  if (selectedSizeIndex !== lastSelectedSizeIndex) {
+		const selectedSize = sizes[selectedSizeIndex] || sizes[sizes.length - 1];
+		iframe.src = selectedSize.src;
+		iframe.width = selectedSize.width;
+		iframe.height = selectedSize.height;
+		lastSelectedSizeIndex = selectedSizeIndex;
+	  }
 	}
   
 	// Set iframe source and size when the page loads.
@@ -49,7 +55,6 @@
 	// Update iframe source and size when the browser window is resized.
 	window.addEventListener('resize', setIframeSourceAndSize);
   </script>  
-
 </head>
 <body>
     <iframe id="figmaEmbed" allowfullscreen></iframe>
