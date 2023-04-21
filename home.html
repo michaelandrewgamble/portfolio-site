@@ -62,7 +62,7 @@
 			}
 		}
 	</style>
-  <script>
+ <script>
 	let lastSelectedSizeIndex = null;
   
 	function setIframeSource() {
@@ -71,14 +71,22 @@
 	  const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
   
 	  const sizes = [
-		{ width: 2560, height: 1440, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-976%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
+	  { width: 2560, height: 1440, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-976%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
 		{ width: 1920, height: 1080, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D271-16009%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
 		{ width: 1366, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-909%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
 		{ width: 1024, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D771-1491%26viewport%3D-11897%252C2454%252C0.5%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
 		{ width: 392, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D771-1516%26viewport%3D-11897%252C2454%252C0.5%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" }
 	  ];
   
-	  const selectedSizeIndex = sizes.findIndex(size => screenWidth >= size.width && screenHeight >= size.height);
+	  const selectedSizeIndex = sizes.findIndex((size, index) => {
+		if (index < sizes.length - 2 && screenHeight >= 768) {
+		  return screenWidth >= size.width;
+		} else if (index === sizes.length - 2 && screenHeight >= 768 && screenWidth < 1366) {
+		  return screenWidth >= size.width;
+		} else {
+		  return screenWidth >= size.width && screenHeight >= size.height;
+		}
+	  });
   
 	  if (selectedSizeIndex !== lastSelectedSizeIndex) {
 		const selectedSize = sizes[selectedSizeIndex] || sizes[sizes.length - 1];
@@ -92,7 +100,7 @@
   
 	// Update iframe source when the browser window is resized.
 	window.addEventListener('resize', setIframeSource);
-  </script>  
+  </script>
 </head>
 <body>
     <iframe id="figmaEmbed" allowfullscreen></iframe>
