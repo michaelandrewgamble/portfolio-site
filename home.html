@@ -39,9 +39,23 @@
 			}
 		}
 
-		@media (max-width: 1919.9px), (max-height: 1079.9px) {
+		@media (min-width: 1366px) and (max-width: 1919.9px), (min-height: 768px) and (max-height: 1079.9px) {
 			iframe {
 				width: 1366px;
+				height: 768px;
+			}
+		}
+
+		@media (min-width: 1024px) and (max-width: 1365.9px), (min-height: 768px) and (max-height: 767.9px) {
+			iframe {
+				width: 1024px;
+				height: 768px;
+			}
+		}
+
+		@media (max-width: 1023.9px), (max-height: 767.9px) {
+			iframe {
+				width: 392px;
 				height: 768px;
 			}
 		}
@@ -57,7 +71,9 @@
 	  const sizes = [
 		{ width: 2560, height: 1440, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-976%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
 		{ width: 1920, height: 1080, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D271-16009%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
-		{ width: 1366, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-909%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" }
+		{ width: 1366, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-909%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
+		{ width: 1024, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D771-1491%26viewport%3D-11897%252C2454%252C0.5%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
+		{ width: 392, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D771-1516%26viewport%3D-11897%252C2454%252C0.5%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" }
 	  ];
   
 	  const selectedSizeIndex = sizes.findIndex(size => screenWidth >= size.width && screenHeight >= size.height);
