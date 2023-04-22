@@ -4,65 +4,57 @@
 	<title>Example</title>
 	<style>
 		body {
-			margin: 0;
-			height: 100vh;
-			overflow: hidden;
-			background-image: url(background.png);
-			background-repeat: no-repeat;
-            background-size: 3840px 2160px;
-            background-position: center center;
+		  margin: 0;
+		  height: 100vh;
+		  overflow: hidden;
+		  background-image: url(background.png);
+		  background-repeat: no-repeat;
+		  background-size: 3840px 2160px;
+		  background-position: center center;
 		}
-
+	  
 		iframe {
-			border: none;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			border-radius:10px;
-			box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.4);
-			background-color: black;
-			transition: width 0.3s, height 0.3s;
+		  border: none;
+		  position: absolute;
+		  top: 50%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		  box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.4);
+		  background-color: black;
+		  transition: width 0.3s, height 0.3s;
 		}
-		/* Add these media queries */
-		@media (min-width: 2560px), (min-height: 1440px) {
-			iframe {
-				width: 2560px;
-				height: 1440px;
-			}
+	  
+		.size-2560 {
+		  width: 2560px;
+		  height: 1440px;
+		  border-radius: 10px;
 		}
-
-		@media (min-width: 1920px) and (max-width: 2559.9px), (min-height: 1080px) and (max-height: 1439.9px) {
-			iframe {
-				width: 1920px;
-				height: 1080px;
-			}
+	  
+		.size-1920 {
+		  width: 1920px;
+		  height: 1080px;
+		  border-radius: 10px;
 		}
-
-		@media (min-width: 1366px) and (max-width: 1919.9px), (min-height: 768px) and (max-height: 1079.9px) {
-			iframe {
-				width: 1366px;
-				height: 768px;
-			}
+	  
+		.size-1366 {
+		  width: 1366px;
+		  height: 768px;
+		  border-radius: 10px;
 		}
-
-		@media (min-width: 1024px) and (max-width: 1365.9px), (min-height: 768px) and (max-height: 767.9px) {
-			iframe {
-				width: 1024px;
-				height: 768px;
-				border-radius: 68px;
-			}
+	  
+		.size-1024 {
+		  width: 1024px;
+		  height: 768px;
+		  border-radius: 68px;
 		}
-
-		@media (max-width: 1023.9px), (max-height: 767.9px) {
-			iframe {
-				width: 392px;
-				height: 768px;
-				border-radius: 48px;
-			}
+	  
+		.size-392 {
+		  width: 392px;
+		  height: 768px;
+		  border-radius: 48px;
 		}
-	</style>
-	<script>
+	  </style>
+	  <script>
 		let lastSelectedSizeIndex = null;
 	  
 		function setIframeSource() {
@@ -77,24 +69,15 @@
 				{ width: 1024, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D771-1491%26viewport%3D-11897%252C2454%252C0.5%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" },
 				{ width: 392, height: 768, src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D771-1516%26viewport%3D-11897%252C2454%252C0.5%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009" }
 			];
-	  
-		  const selectedSizeIndex = sizes.findIndex((size, index) => {
-			if (screenHeight >= 768) {
-			  if (index === 0) {
-				return screenWidth >= size.width;
-			  } else if (index === sizes.length - 1) {
-				return screenWidth < sizes[index - 1].width;
-			  } else {
-				return screenWidth >= size.width && screenWidth < sizes[index - 1].width;
-			  }
-			} else {
-			  return screenWidth >= size.width && screenHeight >= size.height;
-			}
-		  });
+		  
+		  const selectedSizeIndex = sizes.findIndex(size => screenWidth >= size.width && screenHeight >= size.height);
 	  
 		  if (selectedSizeIndex !== lastSelectedSizeIndex) {
 			const selectedSize = sizes[selectedSizeIndex] || sizes[sizes.length - 1];
+	  
 			iframe.src = selectedSize.src;
+			iframe.className = selectedSize.class; // Update the iframe className based on the selected size.
+	  
 			lastSelectedSizeIndex = selectedSizeIndex;
 		  }
 		}
