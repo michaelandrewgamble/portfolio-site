@@ -6,13 +6,19 @@
 		body {
 			margin: 0;
 			height: 100vh;
-			overflow: hidden;
+			max-height: 100vh;
 			background-image: url(background.png);
 			background-repeat: no-repeat;
             background-size: 3840px 2160px;
             background-position: center center;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
-
+		iframe {
+			border: none;
+		}
+/*
 		iframe {
 			border: none;
 			position: absolute;
@@ -24,8 +30,18 @@
 			background-color: black;
 			transition: width 0.3s, height 0.3s;
 		}
+		*/
 		/* Add these media queries */
-		@media (min-width: 2560px), (min-height: 1440px) {
+		/* This rule applies as the smallest supported landscape layout (iPad size) */
+		@media (orientation:landscape) and (max-width:1365.9px){
+			iframe {
+				width: 1024px;
+				height: 768px;
+				border-radius: 68px;
+			}
+		}
+
+		/*@media (min-width: 2560px), (min-height: 1440px) {
 			iframe {
 				width: 2560px;
 				height: 1440px;
@@ -54,13 +70,13 @@
 			}
 		}
 
-		@media (max-width: 1023.9px), (max-height: 767.9px) {
+		@media (max-width: 1023.9px) {
 			iframe {
 				width: 392px;
 				height: 768px;
 				border-radius: 48px;
 			}
-		}
+		}*/
 	</style>
   <script>
 	let lastSelectedSizeIndex = null;
