@@ -17,31 +17,46 @@
         align-items: center;
         justify-content: center;
         min-height: 100vh;
-		--animation-time: 0.3s;
+        --animation-time: 2s;
       }
       .container {
         overflow: hidden;
         box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.4);
-        background-color: black;
+        background-color: rgba(0, 0, 0, 1);
         border-radius: 10px;
       }
       iframe {
         width: 100%;
         height: 100%;
         border: none;
-		opacity: 1;
-		transition: opacity var(--animation-time);
-	  }
-	  iframe.hidden{
-		opacity: 0;
-		transition: opacity 0s;
-	  }
-      /* Add these media queries */
+        opacity: 0;
+        animation-name: fadeIn;
+      }
+
+      /* Keyframe Animations */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Media queries */
       .container {
         width: 392px;
         height: 768px;
         border-radius: 48px;
-		transition: width var(--animation-time), height var(--animation-time), border-radius var(--animation-time);
+        transition: width 0.8s, height 0.8s, border-radius 0.8s;
       }
       @media (min-width: 1024px) {
         .container {
@@ -75,22 +90,27 @@
     <script>
       const sizes = [
         {
+          cls: "mobile",
           mediaQuery: "(min-width: 0px)",
           src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D771-1516%26viewport%3D-11897%252C2454%252C0.5%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009",
         },
-		{
+        {
+          cls: "tablet",
           mediaQuery: "(min-width: 1024px)",
           src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D771-1491%26viewport%3D-11897%252C2454%252C0.5%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009",
         },
-		{
+        {
+          cls: "c720p",
           mediaQuery: "(min-width: 1366px)",
           src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-909%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009",
         },
-		{
+        {
+          cls: "c1080p",
           mediaQuery: "(min-width: 1920px) and (min-height: 1080px)",
           src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D271-16009%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009",
         },
         {
+          cls: "c1440p",
           mediaQuery: "(min-width: 2560px) and (min-height: 1440px)",
           src: "https://www.figma.com/embed?hide-ui=1&embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FZZ1jFTxkepN2or66d1Ztiu%2FPortfolio%3Fpage-id%3D0%253A1%26node-id%3D618-976%26viewport%3D-2566%252C1401%252C0.13%26scaling%3Dmin-zoom%26starting-point-node-id%3D271%253A16009",
         },
@@ -100,18 +120,37 @@
         const match = sizes.find(
           (size, index) => window.matchMedia(size.mediaQuery).matches
         );
-        return match.src;
+        return match;
       }
       function updateURL() {
-        const newURL = findMediaQueryURL();
-        if (newURL !== selectedURL) {
-          selectedURL = newURL;
-		  const iframe = document.getElementById("figmaEmbed");
+        const match = findMediaQueryURL();
+        if (match.src !== selectedURL) {
+          selectedURL = match.src;
+          selectedClass = match.cls;
+          const div = document.querySelector(".container");
+          const iframe = document.querySelector(".figma");
+
+          // Trigger the fade-out animation on the iframe
+          div.style.backgroundColor = "rgba(0, 0, 0, 1)";
+          iframe.style.animation = "fadeOut 0.01s both";
+
+          div.classList.remove("mobile", "tablet", "720p", "1080p", "1440p");
+          div.classList.add(selectedClass);
+
+          // Trigger the fade in animation
+          iframe.addEventListener("load", function () {
+            iframe.style.animation = "none";
+            setTimeout(() => {
+              iframe.style.animation = "fadeIn 0.8s both";
+            }, 0);
+            iframe.addEventListener("animationend", function () {
+              if (event.animationName === "fadeIn") {
+                div.style.backgroundColor = "rgba(0, 0, 0, 0)";
+              }
+            });
+          });
+
           iframe.src = selectedURL;
-		  iframe.classList.add("hidden");
-		  setTimeout(function(){
-			iframe.classList.remove("hidden");
-		  }, 2000);
         }
       }
       // Set iframe source when the page loads.
@@ -124,7 +163,7 @@
   <body>
     <div class="viewport">
       <div class="container">
-        <iframe id="figmaEmbed" allowfullscreen></iframe>
+        <iframe class="figma" allowfullscreen></iframe>
       </div>
     </div>
   </body>
