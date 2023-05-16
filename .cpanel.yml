@@ -4,3 +4,4 @@ deployment:
     - export DEPLOYPATH=/home/siliconnorth/public_html/
     - /bin/cp ./home.html $DEPLOYPATH
     - /bin/cp ./background.png $DEPLOYPATH
+    - /bin/cp ./alert.png $DEPLOYPATH
